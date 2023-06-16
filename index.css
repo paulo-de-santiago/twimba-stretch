@@ -93,9 +93,9 @@ button{
     width: 160px;
 }
 
-.tweet-detail{
+.tweet-detail-reply{
     display: flex;
-    gap: 4px;
+    padding: auto;
 }
 
 .tweet-reply{
@@ -130,3 +130,34 @@ button{
 .hidden{
     display: none;
 }
+
+
+
+/* Reply tweet */
+.reply-btns-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.reply-btn {
+
+    width: 125px;
+    font-size: 9px;
+    padding: auto;
+/*     cursor: pointer; */
+
+}
+
+/* .reply-btns-div{
+    display: flex;
+    font-size: 13px;
+    justify-content: space-between;
+    width: 160px;
+} */
+
+/* .reply-btns-div{
+    display: flex;
+    gap: 4px;
+} */
