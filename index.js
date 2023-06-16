@@ -1,133 +1,112 @@
-import { tweetsData } from './data.js'
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+// @ts-nocheck
+import { tweetsData } from "./data.js";
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-document.addEventListener('click', function(e){
-  
-    
-    if(e.target.dataset.like){
-       handleLikeClick(e.target.dataset.like) 
-    }
-    
+document.addEventListener("click", function (e) {
+  if (e.target.dataset.like) {
+    /* handleLikeClick(e.target.dataset.like); */
+  } else if (e.target.dataset.retweet) {
+    handleRetweetClick(e.target.dataset.retweet);
+  } else if (e.target.dataset.reply) {
+    handleReplyClick(e.target.dataset.reply);
+  } else if (e.target.id === "tweet-btn") {
+    handleTweetBtnClick();
+  }
+
+  /*   else if (e.target.dataset.replyMessage) {
     /* Reply Icon target */
-    else if (e.target.dataset.replyMessage) {
-        
-        handleReplyMessage(e.target.dataset.replyMessage)
- /*        handleReplyClick(e.target.dataset.replyMessage) */
-    
-        console.log(e.target.dataset.replyMessage)
-        
-    }
-    
-    else if(e.target.dataset.retweet){
-        handleRetweetClick(e.target.dataset.retweet)
-    }
-    else if(e.target.dataset.reply){
-        handleReplyClick(e.target.dataset.reply)
-    }
-    else if(e.target.id === 'tweet-btn'){
-        handleTweetBtnClick()
-    }
-      console.log(e.target.dataset)
-})
- 
- 
- function handleReplyMessage(replyM) {
-     
-     handleReplyClick(replyM)
-     
-     let replyMessage = `<div class="tweet-input-area">
+  /*     handleReplyMessage(e.target.dataset.replyMessage); */
+  /*        handleReplyClick(e.target.dataset.replyMessage) 
+  }
+*/
+  console.log(e.target.dataset);
+});
+
+/* function handleReplyMessage(replyM) {
+  handleReplyClick(replyM);
+
+  let replyMessage = `<div class="tweet-input-area">
 			<img src="images/scrimbalogo.png" class="profile-pic">
 			<textarea placeholder="What's happening?" id="tweet-input"></textarea>
 		</div>
-		<button id="tweet-btn">Tweet</button>`
-        
+		<button id="tweet-btn">Tweet</button>`;
 
-        
-     
-     console.log(replyMessage)
- }
- 
- 
- 
-function handleLikeClick(tweetId){ 
-    const targetTweetObj = tweetsData.filter(function(tweet){
-        return tweet.uuid === tweetId
-    })[0]
+  console.log(replyMessage);
+} */
 
-    if (targetTweetObj.isLiked){
-        targetTweetObj.likes--
-    }
-    else{
-        targetTweetObj.likes++ 
-    }
-    targetTweetObj.isLiked = !targetTweetObj.isLiked
-    render()
+function handleLikeClick(tweetId) {
+  const targetTweetObj = tweetsData.filter(function (tweet) {
+    return tweet.uuid === tweetId;
+  })[0];
+
+  if (targetTweetObj.isLiked) {
+    targetTweetObj.likes--;
+  } else {
+    targetTweetObj.likes++;
+  }
+  targetTweetObj.isLiked = !targetTweetObj.isLiked;
+  render();
 }
 
-function handleRetweetClick(tweetId){
-    const targetTweetObj = tweetsData.filter(function(tweet){
-        return tweet.uuid === tweetId
-    })[0]
-    
-    if(targetTweetObj.isRetweeted){
-        targetTweetObj.retweets--
-    }
-    else{
-        targetTweetObj.retweets++
-    }
-    targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted
-    render() 
+function handleRetweetClick(tweetId) {
+  const targetTweetObj = tweetsData.filter(function (tweet) {
+    return tweet.uuid === tweetId;
+  })[0];
+
+  if (targetTweetObj.isRetweeted) {
+    targetTweetObj.retweets--;
+  } else {
+    targetTweetObj.retweets++;
+  }
+  targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted;
+  render();
 }
 
-function handleReplyClick(replyId){
-    document.getElementById(`replies-${replyId}`).classList.toggle('hidden')
+function handleReplyClick(replyId) {
+  document.getElementById(`replies-${replyId}`).classList.toggle("hidden");
 }
 
+function handleTweetBtnClick() {
+  const tweetInput = document.getElementById("tweet-input");
 
+  if (tweetInput.value) {
+    tweetsData.unshift({
+      handle: `@Scrimba`,
+      profilePic: `images/scrimbalogo.png`,
+      likes: 0,
+      retweets: 0,
+      tweetText: tweetInput.value,
+      replies: [],
+      isLiked: false,
+      isRetweeted: false,
+      uuid: uuidv4(),
+    });
+    render();
+    tweetInput.value = "";
+  }
+}
 
-function handleTweetBtnClick(){
-    const tweetInput = document.getElementById('tweet-input')
+function getFeedHtml() {
+  let feedHtml = ``;
 
-    if(tweetInput.value){
-        tweetsData.unshift({
-            handle: `@Scrimba`,
-            profilePic: `images/scrimbalogo.png`,
-            likes: 0,
-            retweets: 0,
-            tweetText: tweetInput.value,
-            replies: [],
-            isLiked: false,
-            isRetweeted: false,
-            uuid: uuidv4()
-        })
-    render()
-    tweetInput.value = ''
+  tweetsData.forEach(function (tweet) {
+    let likeIconClass = "";
+
+    if (tweet.isLiked) {
+      likeIconClass = "liked";
     }
 
-}
+    let retweetIconClass = "";
 
-function getFeedHtml(){
-    let feedHtml = ``
-    
-    tweetsData.forEach(function(tweet){
-        
-        let likeIconClass = ''
-        
-        if (tweet.isLiked){
-            likeIconClass = 'liked'
-        }
-        
-        let retweetIconClass = ''
-        
-        if (tweet.isRetweeted){
-            retweetIconClass = 'retweeted'
-        }
-        
-        let repliesHtml = ''
-        
-        if(tweet.replies.length > 0){
-            tweet.replies.forEach(function(reply){
-                repliesHtml+=`
+    if (tweet.isRetweeted) {
+      retweetIconClass = "retweeted";
+    }
+
+    let repliesHtml = "";
+
+    if (tweet.replies.length > 0) {
+      tweet.replies.forEach(function (reply) {
+        repliesHtml += `
 <div class="tweet-reply">
     <div class="tweet-inner">
         <img src="${reply.profilePic}" class="profile-pic">
@@ -137,12 +116,11 @@ function getFeedHtml(){
             </div>
         </div>
 </div>
-`
-            })
-        }
-        
-          
-        feedHtml += `
+`;
+      });
+    }
+
+    feedHtml += `
 <div class="tweet">
     <div class="tweet-inner">
         <img src="${tweet.profilePic}" class="profile-pic">
@@ -184,14 +162,13 @@ function getFeedHtml(){
         ${repliesHtml}
     </div>   
 </div>
-`
-   })
-   return feedHtml 
+`;
+  });
+  return feedHtml;
 }
 
-function render(){
-    document.getElementById('feed').innerHTML = getFeedHtml()
+function render() {
+  document.getElementById("feed").innerHTML = getFeedHtml();
 }
 
-render()
-
+render();
