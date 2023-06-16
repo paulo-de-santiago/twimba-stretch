@@ -19,6 +19,8 @@ document.addEventListener("click", function (e) {
 */
   } else if (e.target.dataset.replyMessageBtn) {
     handleTweetReplyButton();
+  } else if (e.target.dataset.replyMessageClosed) {
+    replyMessageClosed();
   }
   console.log(e.target.dataset);
 });
@@ -26,15 +28,13 @@ document.addEventListener("click", function (e) {
 /* REPLY MESSAGE */
 
 function handleReplyMessage(replyM) {
-  /*   let replyMain = document.getElementById(`tweet-input`); */
-
   /* Replies Message Modal */
 
   let repliesMessage = `
 <div class="reply" id="reply">
   <div class="reply-btns-div">
     <span class="tweet-detail-reply">
-      <i class="fas fa-window-close" style="color: #3d48d6" ></i>
+      <i class="fas fa-window-close" style="color: #3d48d6" data-reply-message-closed=${replyM} ></i>
     </span>
     <button class="reply-btn" data-reply-message-btn=${replyM} >Your message</button>
   </div>
@@ -111,10 +111,19 @@ function handleTweetBtnClick() {
 /* Handle tweet message reply button */
 
 function handleTweetReplyButton() {
-  const messageReply = document.getElementById("tweet-message-reply").value;
-  if (messageReply) {
+  const messageReply = document.getElementById("tweet-message-reply");
+  const replyMain = document.getElementById("reply-main");
+
+  if (messageReply.value) {
+    messageReply.value = "";
+    replyMain.innerHTML = "";
     console.log("message written");
   }
+}
+
+/* TO DO  */
+function replyMessageClosed(replyM) {
+  console.log(replyM);
 }
 
 function getFeedHtml() {
