@@ -2,6 +2,14 @@
 import { tweetsData } from "./data.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
+/* tweetsData.forEach(function (tweet) {
+  tweet.replies(function (messages) {
+    console.log(messages.tweetText);
+  });
+});
+ */
+/* console.log(filter); */
+
 document.addEventListener("click", function (e) {
   if (e.target.dataset.like) {
     handleLikeClick(e.target.dataset.like);
@@ -117,12 +125,21 @@ function handleTweetReplyButton() {
   if (messageReply.value) {
     messageReply.value = "";
     replyMain.innerHTML = "";
+
+    /*     tweetsData.forEach(function (tweet) {
+      console.log(tweet);
+    }); */
+
+    render();
     console.log("message written");
   }
 }
 
 /* TO DO  */
 function replyMessageClosed(replyM) {
+  const replyMain = document.getElementById("reply-main");
+  replyMain.innerHTML = "";
+  render();
   console.log(replyM);
 }
 
