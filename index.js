@@ -4,35 +4,34 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 document.addEventListener("click", function (e) {
   if (e.target.dataset.like) {
-    /* handleLikeClick(e.target.dataset.like); */
+    handleLikeClick(e.target.dataset.like);
   } else if (e.target.dataset.retweet) {
     handleRetweetClick(e.target.dataset.retweet);
   } else if (e.target.dataset.reply) {
     handleReplyClick(e.target.dataset.reply);
   } else if (e.target.id === "tweet-btn") {
     handleTweetBtnClick();
-  }
-
-  /*   else if (e.target.dataset.replyMessage) {
+  } else if (e.target.dataset.replyMessage) {
     /* Reply Icon target */
-  /*     handleReplyMessage(e.target.dataset.replyMessage); */
-  /*        handleReplyClick(e.target.dataset.replyMessage) 
-  }
+    handleReplyMessage(e.target.dataset.replyMessage);
+    /*        handleReplyClick(e.target.dataset.replyMessage) 
+ 
 */
+  }
   console.log(e.target.dataset);
 });
 
-/* function handleReplyMessage(replyM) {
+function handleReplyMessage(replyM) {
   handleReplyClick(replyM);
 
-  let replyMessage = `<div class="tweet-input-area">
+  /*  let replyMessage = `<div class="tweet-input-area">
 			<img src="images/scrimbalogo.png" class="profile-pic">
 			<textarea placeholder="What's happening?" id="tweet-input"></textarea>
 		</div>
 		<button id="tweet-btn">Tweet</button>`;
-
-  console.log(replyMessage);
-} */
+ */
+  console.log(replyM);
+}
 
 function handleLikeClick(tweetId) {
   const targetTweetObj = tweetsData.filter(function (tweet) {
