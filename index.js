@@ -17,22 +17,43 @@ document.addEventListener("click", function (e) {
     /*        handleReplyClick(e.target.dataset.replyMessage) 
  
 */
+  } else if (e.target.dataset.replyMessageBtn) {
+    handleTweetReplyButton();
   }
   console.log(e.target.dataset);
 });
 
+/* REPLY MESSAGE */
+
 function handleReplyMessage(replyM) {
-  handleReplyClick(replyM);
+  /*   let replyMain = document.getElementById(`tweet-input`); */
 
-  let replyMain = document.querySelector(".reply-main");
-  console.log(replyMain);
+  /* Replies Message Modal */
 
-  /*  let replyMessage = `<div class="tweet-input-area">
-			<img src="images/scrimbalogo.png" class="profile-pic">
-			<textarea placeholder="What's happening?" id="tweet-input"></textarea>
-		</div>
-		<button id="tweet-btn">Tweet</button>`;
- */
+  let repliesMessage = `
+<div class="reply" id="reply">
+  <div class="reply-btns-div">
+    <span class="tweet-detail-reply">
+      <i class="fas fa-window-close" style="color: #3d48d6" ></i>
+    </span>
+    <button class="reply-btn" data-reply-message-btn=${replyM} >Your message</button>
+  </div>
+  <div class="reply-text-area">
+    <img src="images/scrimbalogo.png" class="profile-pic" />
+    <textarea
+      placeholder="Your message."
+      class="tweet-message-reply"
+      id="tweet-message-reply"
+    ></textarea>
+  </div>
+`;
+
+  document.getElementById("reply-main").innerHTML = repliesMessage;
+
+  console.log(repliesMessage);
+
+  render();
+  /*   return repliesMessage; */
 }
 
 function handleLikeClick(tweetId) {
@@ -84,6 +105,15 @@ function handleTweetBtnClick() {
     });
     render();
     tweetInput.value = "";
+  }
+}
+
+/* Handle tweet message reply button */
+
+function handleTweetReplyButton() {
+  const messageReply = document.getElementById("tweet-message-reply").value;
+  if (messageReply) {
+    console.log("message written");
   }
 }
 
@@ -157,7 +187,10 @@ function getFeedHtml() {
                 </span>
 
             </div>   
-        </div>            
+        </div>   
+         
+  
+      </div>
     </div>
     <div class="hidden" id="replies-${tweet.uuid}">
         ${repliesHtml}
@@ -165,6 +198,7 @@ function getFeedHtml() {
 </div>
 `;
   });
+
   return feedHtml;
 }
 

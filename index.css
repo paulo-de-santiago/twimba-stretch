@@ -136,8 +136,7 @@ button{
 /* Reply tweet */
 
 .reply-main {
-   /*  display: none; */
-   display: flex; 
+   display: flex;  
    position: fixed;
    top: 50%;
    left: 50%;
@@ -147,7 +146,6 @@ button{
    border-radius: 5px;
 }
 .reply-btns-div{
-   
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -174,21 +172,8 @@ button{
     align-items: flex-start;
     gap: 20px;
     padding-left: 30px;
-  /*   padding-left:20px;
-   */
+
 
 }
 
 
-
-/* .reply-btns-div{
-    display: flex;
-    font-size: 13px;
-    justify-content: space-between;
-    width: 160px;
-} */
-
-/* .reply-btns-div{
-    display: flex;
-    gap: 4px;
-} */
