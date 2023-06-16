@@ -134,10 +134,24 @@ button{
 
 
 /* Reply tweet */
+
+.reply-main {
+   /*  display: none; */
+   display: flex; 
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   padding-right: 15px;
+   background-color: rgba(148, 177, 181, 0.516);
+   border-radius: 5px;
+}
 .reply-btns-div{
+   
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin: 20px;
     gap: 10px;
 }
 
@@ -146,9 +160,26 @@ button{
     width: 125px;
     font-size: 9px;
     padding: auto;
-/*     cursor: pointer; */
+ 
 
 }
+
+.reply-btn, 
+.tweet-detail-reply:hover {
+    cursor: pointer;
+}
+
+.reply-text-area {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-left: 30px;
+  /*   padding-left:20px;
+   */
+
+}
+
+
 
 /* .reply-btns-div{
     display: flex;

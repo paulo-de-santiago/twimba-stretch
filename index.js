@@ -24,13 +24,15 @@ document.addEventListener("click", function (e) {
 function handleReplyMessage(replyM) {
   handleReplyClick(replyM);
 
+  let replyMain = document.querySelector(".reply-main");
+  console.log(replyMain);
+
   /*  let replyMessage = `<div class="tweet-input-area">
 			<img src="images/scrimbalogo.png" class="profile-pic">
 			<textarea placeholder="What's happening?" id="tweet-input"></textarea>
 		</div>
 		<button id="tweet-btn">Tweet</button>`;
  */
-  console.log(replyM);
 }
 
 function handleLikeClick(tweetId) {
