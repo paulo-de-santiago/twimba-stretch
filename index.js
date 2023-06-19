@@ -58,10 +58,11 @@ function handleReplyMessage(replyM) {
 
   document.getElementById("reply-main").innerHTML = repliesMessage;
 
-  console.log(repliesMessage);
+  /* console.log(repliesMessage); */
 
   render();
-  /*   return repliesMessage; */
+
+  /*  return repliesMessage; */
 }
 
 function handleLikeClick(tweetId) {
@@ -116,31 +117,38 @@ function handleTweetBtnClick() {
   }
 }
 
+console.log(tweetsData.replies);
 /* Handle tweet message reply button */
 
-function handleTweetReplyButton() {
+function handleTweetReplyButton(replyM) {
   const messageReply = document.getElementById("tweet-message-reply");
   const replyMain = document.getElementById("reply-main");
 
   if (messageReply.value) {
+    tweetsData.forEach(function (tweet) {
+      tweet.replies.unshift({
+        handle: `@Scrimba`,
+        tweetText: messageReply.value,
+        uuid: uuidv4(),
+      });
+
+      console.log(tweet.replies);
+    });
+
     messageReply.value = "";
     replyMain.innerHTML = "";
 
-    /*     tweetsData.forEach(function (tweet) {
-      console.log(tweet);
-    }); */
-
-    render();
     console.log("message written");
   }
+  render();
 }
 
-/* TO DO  */
+/* Done */
 function replyMessageClosed(replyM) {
   const replyMain = document.getElementById("reply-main");
   replyMain.innerHTML = "";
   render();
-  console.log(replyM);
+  /* console.log(replyM); */
 }
 
 function getFeedHtml() {
