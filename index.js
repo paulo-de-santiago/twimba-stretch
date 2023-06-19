@@ -2,13 +2,25 @@
 import { tweetsData } from "./data.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-/* tweetsData.forEach(function (tweet) {
-  tweet.replies(function (messages) {
-    console.log(messages.tweetText);
-  });
-});
- */
-/* console.log(filter); */
+/* FIREBASE SETTINGS */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  remove,
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+const appSettings = {
+  databaseURL:
+    "https://twimba-983ed-default-rtdb.europe-west1.firebasedatabase.app/",
+};
+
+const app = initializeApp(appSettings);
+const database = getDatabase(app);
+const twimbaInDataBase = ref(database, "twimba");
+console.log(twimbaInDataBase);
 
 document.addEventListener("click", function (e) {
   if (e.target.dataset.like) {
@@ -112,6 +124,7 @@ function handleTweetBtnClick() {
       isRetweeted: false,
       uuid: uuidv4(),
     });
+
     render();
     tweetInput.value = "";
   }
@@ -127,6 +140,7 @@ function handleTweetReplyButton(replyM) {
   if (messageReply.value) {
     tweetsData.forEach(function (tweet) {
       tweet.replies.unshift({
+        profilePic: `images/scrimbalogo.png`,
         handle: `@Scrimba`,
         tweetText: messageReply.value,
         uuid: uuidv4(),
@@ -232,6 +246,8 @@ function getFeedHtml() {
 </div>
 `;
   });
+
+  push(twimbaInDataBase, tweetsData);
 
   return feedHtml;
 }
