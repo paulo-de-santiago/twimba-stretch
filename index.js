@@ -29,14 +29,13 @@ document.addEventListener("click", function (e) {
     handleRetweetClick(e.target.dataset.retweet);
   } else if (e.target.dataset.reply) {
     handleReplyClick(e.target.dataset.reply);
+    return target.dataset;
   } else if (e.target.id === "tweet-btn") {
     handleTweetBtnClick();
   } else if (e.target.dataset.replyMessage) {
     /* Reply Icon target */
     handleReplyMessage(e.target.dataset.replyMessage);
-    /*        handleReplyClick(e.target.dataset.replyMessage) 
- 
-*/
+    /*  handleReplyMessage(e.target.dataset.replyMessage)  */
   } else if (e.target.dataset.replyMessageBtn) {
     handleTweetReplyButton();
   } else if (e.target.dataset.replyMessageClosed) {
@@ -74,7 +73,7 @@ function handleReplyMessage(replyM) {
 
   render();
 
-  /*  return repliesMessage; */
+  return repliesMessage;
 }
 
 function handleLikeClick(tweetId) {
@@ -133,7 +132,7 @@ function handleTweetBtnClick() {
 console.log(tweetsData.replies);
 /* Handle tweet message reply button */
 /* To Do */
-function handleTweetReplyButton(replyM) {
+function handleTweetReplyButton() {
   const messageReply = document.getElementById("tweet-message-reply");
   const replyMain = document.getElementById("reply-main");
 
@@ -158,7 +157,7 @@ function handleTweetReplyButton(replyM) {
 }
 
 /* Done */
-function replyMessageClosed(replyM) {
+function replyMessageClosed() {
   const replyMain = document.getElementById("reply-main");
   replyMain.innerHTML = "";
   render();
@@ -208,7 +207,7 @@ function getFeedHtml() {
             <p class="tweet-text">${tweet.tweetText}</p>
             <div class="tweet-details">
                 <span class="tweet-detail">
-                    <i class="fa-regular fa-comment-dots"
+                    <i class="fa-regular fa-comment-dots" 
                     data-reply="${tweet.uuid}"
                     ></i>
                     ${tweet.replies.length}
@@ -217,7 +216,7 @@ function getFeedHtml() {
                 <span class="tweet-detail"> 
                 
          
-                <i class="fa-solid fa-reply" data-reply-message="${tweet.uuid}"></i>
+                <i class="fa-solid fa-reply"  data-reply-message="${tweet.uuid}"></i>
                 </span>
                 
                 <span class="tweet-detail">
